@@ -6,6 +6,8 @@ Sodium signatures that works in node and in the browser
 npm install sodium-signatures
 ```
 
+[![build status](http://img.shields.io/travis/mafintosh/sodium-signatures.svg?style=flat)](http://travis-ci.org/mafintosh/sodium-signatures)
+
 ## Usage
 
 ``` js
