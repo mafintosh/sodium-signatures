@@ -17,7 +17,7 @@ var keys = signatures.keyPair()
 var message = new Buffer('a message')
 
 var signature = signatures.sign(message, keys.secretKey)
-var verified = signatures.verify(message, signatures, keys.publicKey)
+var verified = signatures.verify(message, signature, keys.publicKey)
 
 console.log('message was verified', verified)
 ```
