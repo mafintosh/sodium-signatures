@@ -1,6 +1,6 @@
 # sodium-signatures
 
-Sodium signatures that works in node and in the browser
+[Sodium signatures](https://github.com/paixaop/node-sodium) that works in node and in the browser
 
 ```
 npm install sodium-signatures
