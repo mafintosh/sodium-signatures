@@ -1,6 +1,6 @@
 {
   "name": "sodium-signatures",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Sodium signatures that works in node and in the browser",
   "main": "index.js",
   "dependencies": {
