@@ -1,4 +1,4 @@
-var sodium = require('sodium').api
+var sodium = require('sodium-prebuilt').api
 
 exports.keyPair = function () {
   return sodium.crypto_sign_keypair()

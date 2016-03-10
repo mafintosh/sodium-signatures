@@ -11,7 +11,7 @@
     "tape": "^4.2.0"
   },
   "optionalDependencies": {
-    "sodium": "^1.0.21"
+    "sodium-prebuilt": "^1.0.22"
   },
   "browser": "./browser.js",
   "scripts": {
