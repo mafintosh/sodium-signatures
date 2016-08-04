@@ -24,9 +24,9 @@ console.log('message was verified', verified)
 
 ## API
 
-#### `keys = signatures.keyPair()`
+#### `keys = signatures.keyPair([seed])`
 
-Generate a public key and a secret key.
+Generate a public key and a secret key, optionally using a 32 byte `seed`
 
 #### `signature = signature.sign(message, secretKey)`
 

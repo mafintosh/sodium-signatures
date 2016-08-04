@@ -1,9 +1,16 @@
 var tweetnacl = require('tweetnacl')
 
-exports.keyPair = function () {
+exports.keyPair = function (seed) {
   var publicKey = Buffer(tweetnacl.lowlevel.crypto_sign_PUBLICKEYBYTES)
   var secretKey = Buffer(tweetnacl.lowlevel.crypto_sign_SECRETKEYBYTES)
-  tweetnacl.lowlevel.crypto_sign_keypair(publicKey, secretKey)
+
+  if (seed) {
+    secretKey.fill(seed, 0, seed.length)
+    tweetnacl.lowlevel.crypto_sign_keypair(publicKey, secretKey, true)
+  } else {
+    tweetnacl.lowlevel.crypto_sign_keypair(publicKey, secretKey)
+  }
+
   return {publicKey: publicKey, secretKey: secretKey}
 }
 
