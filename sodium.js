@@ -1,6 +1,7 @@
 var sodium = require('sodium-prebuilt').api
 
-exports.keyPair = function () {
+exports.keyPair = function (seed) {
+  if (seed) return sodium.crypto_sign_seed_keypair(seed)
   return sodium.crypto_sign_keypair()
 }
 
