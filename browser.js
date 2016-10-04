@@ -5,6 +5,10 @@ exports.keyPair = function (seed) {
   var secretKey = Buffer(tweetnacl.lowlevel.crypto_sign_SECRETKEYBYTES)
 
   if (seed) {
+    if (seed.length !== tweetnacl.lowlevel.crypto_sign_SEEDBYTES) {
+      throw new Error('Seed must be ' + tweetnacl.lowlevel.crypto_sign_SEEDBYTES + ' bytes long')
+    }
+
     secretKey.fill(seed, 0, seed.length)
     tweetnacl.lowlevel.crypto_sign_keypair(publicKey, secretKey, true)
   } else {
