@@ -1,11 +1,10 @@
 var sodium = require('sodium-prebuilt').api
 
+var SEED_BYTES = sodium.crypto_sign_SEEDBYTES || 32
+
 exports.keyPair = function (seed) {
   if (seed) {
-    if (seed.length !== sodium.crypto_sign_SEEDBYTES) {
-      throw new Error('Seed must be ' + sodium.crypto_sign_SEEDBYTES + ' bytes long')
-    }
-
+    if (seed.length !== SEED_BYTES) throw new Error('Seed must be ' + SEED_BYTES + ' bytes long')
     return sodium.crypto_sign_seed_keypair(seed)
   }
   return sodium.crypto_sign_keypair()
