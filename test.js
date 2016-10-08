@@ -33,3 +33,10 @@ tape('sign and verify with seed', function (t) {
   t.ok(signatures.verify(message, sig, keys2.publicKey), 'message verifies')
   t.end()
 })
+
+tape('throws on seed not crypto_sign_SEEDBYTES long', function (t) {
+  t.throws(function () { signatures.keyPair(Buffer(31)) })
+  t.throws(function () { signatures.keyPair(Buffer(33)) })
+
+  t.end()
+})

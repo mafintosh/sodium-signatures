@@ -26,7 +26,8 @@ console.log('message was verified', verified)
 
 #### `keys = signatures.keyPair([seed])`
 
-Generate a public key and a secret key, optionally using a 32 byte `seed`
+Generate a public key and a secret key, optionally using a 32-byte `seed`
+(`crypto_sign_SEEDBYTES` defines this length)
 
 #### `signature = signature.sign(message, secretKey)`
 
