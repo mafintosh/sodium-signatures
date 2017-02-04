@@ -1,19 +1,24 @@
-var sodium = require('sodium-prebuilt').api
-
-var SEED_BYTES = sodium.crypto_sign_SEEDBYTES || 32
+var sodium = require('sodium-native')
 
 exports.keyPair = function (seed) {
-  if (seed) {
-    if (seed.length !== SEED_BYTES) throw new Error('Seed must be ' + SEED_BYTES + ' bytes long')
-    return sodium.crypto_sign_seed_keypair(seed)
+  var publicKey = new Buffer(sodium.crypto_sign_PUBLICKEYBYTES)
+  var secretKey = new Buffer(sodium.crypto_sign_SECRETKEYBYTES)
+
+  if (seed) sodium.crypto_sign_seed_keypair(publicKey, secretKey, seed)
+  else sodium.crypto_sign_keypair(publicKey, secretKey)
+
+  return {
+    publicKey: publicKey,
+    secretKey: secretKey
   }
-  return sodium.crypto_sign_keypair()
+}
+
+exports.sign = function (message, secretKey) {
+  var signature = new Buffer(sodium.crypto_sign_BYTES)
+  sodium.crypto_sign_detached(signature, message, secretKey)
+  return signature
 }
 
 exports.verify = function (message, signature, publicKey) {
   return sodium.crypto_sign_verify_detached(signature, message, publicKey)
-}
-
-exports.sign = function (message, secretKey) {
-  return sodium.crypto_sign_detached(message, secretKey)
 }

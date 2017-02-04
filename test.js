@@ -36,7 +36,6 @@ tape('sign and verify with seed', function (t) {
 
 tape('throws on seed not crypto_sign_SEEDBYTES long', function (t) {
   t.throws(function () { signatures.keyPair(Buffer(31)) })
-  t.throws(function () { signatures.keyPair(Buffer(33)) })
 
   t.end()
 })
