@@ -1,8 +1,9 @@
 var sodium = require('sodium-universal')
+var alloc = require('buffer-alloc-unsafe')
 
 exports.keyPair = function (seed) {
-  var publicKey = new Buffer(sodium.crypto_sign_PUBLICKEYBYTES)
-  var secretKey = new Buffer(sodium.crypto_sign_SECRETKEYBYTES)
+  var publicKey = alloc(sodium.crypto_sign_PUBLICKEYBYTES)
+  var secretKey = alloc(sodium.crypto_sign_SECRETKEYBYTES)
 
   if (seed) sodium.crypto_sign_seed_keypair(publicKey, secretKey, seed)
   else sodium.crypto_sign_keypair(publicKey, secretKey)
@@ -14,7 +15,7 @@ exports.keyPair = function (seed) {
 }
 
 exports.sign = function (message, secretKey) {
-  var signature = new Buffer(sodium.crypto_sign_BYTES)
+  var signature = alloc(sodium.crypto_sign_BYTES)
   sodium.crypto_sign_detached(signature, message, secretKey)
   return signature
 }

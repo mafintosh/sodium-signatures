@@ -1,18 +1,20 @@
 var tape = require('tape')
 var signatures = require('./')
+var toBuffer = require('to-buffer')
+var alloc = require('buffer-alloc-unsafe')
 
 tape('sign and verify', function (t) {
   var keys = signatures.keyPair()
   t.ok(keys.publicKey, 'has public key')
   t.ok(keys.secretKey, 'has secret key')
-  var message = new Buffer('hello')
+  var message = toBuffer('hello')
   var sig = signatures.sign(message, keys.secretKey)
   t.ok(signatures.verify(message, sig, keys.publicKey), 'message verifies')
   t.end()
 })
 
 tape('sign and verify with seed', function (t) {
-  var seed = Buffer([
+  var seed = toBuffer([
     123, 321, 123, 321,
     123, 321, 123, 321,
     123, 321, 123, 321,
@@ -26,7 +28,7 @@ tape('sign and verify with seed', function (t) {
   var keys = signatures.keyPair(seed)
   t.ok(keys.publicKey, 'has public key')
   t.ok(keys.secretKey, 'has secret key')
-  var message = new Buffer('hello')
+  var message = toBuffer('hello')
   var sig = signatures.sign(message, keys.secretKey)
 
   var keys2 = signatures.keyPair(seed)
@@ -35,7 +37,7 @@ tape('sign and verify with seed', function (t) {
 })
 
 tape('throws on seed not crypto_sign_SEEDBYTES long', function (t) {
-  t.throws(function () { signatures.keyPair(Buffer(31)) })
+  t.throws(function () { signatures.keyPair(alloc(31)) })
 
   t.end()
 })
